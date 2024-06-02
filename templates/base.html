@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Event APJATIL{% endblock %}</title>
+  <link href="{% static 'css/tailwind.css' %}" rel="stylesheet">
+  <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet">
+</head>
+<body>
+<nav class="bg-gray-800 py-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <a href="#" class="text-white text-xl font-semibold">APJATIL</a>
+    <ul class="flex space-x-4">
+      <li><a href="#" class="text-white">Home</a></li>
+      <li><a href="#" class="text-white">About</a></li>
+      <li><a href="#" class="text-white">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container mx-auto mt-8">
+  {% block content %}
+  {% endblock %}
+</div>
+</body>
+</html>
