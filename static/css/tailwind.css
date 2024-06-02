@@ -1,0 +1,13 @@
+/* Styling for Navbar */
+.navbar {
+    background-color: #1a202c;
+}
+
+.navbar a {
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+}
+
+.navbar a:hover {
+    background-color: #2d3748;
+}
