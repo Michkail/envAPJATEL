@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv('SEC')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('ALLOWED').split(",")
 
 
 # Application definition
@@ -40,6 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Additional Libs
+    'storages',
+
+    # Apps
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -122,17 +128,39 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+STATIC_URL = '/static/'
 
-STATIC_ROOT = 'media'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# MinIO configuration
+AWS_ACCESS_KEY_ID = os.getenv('M_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = os.getenv('M_SECRET_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('M_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = os.getenv('M_ENDPOINT')
+AWS_S3_REGION_NAME = os.getenv('M_REGION')
+AWS_S3_SIGNATURE_VERSION = os.getenv('M_SIGNATURE')
+
+# Static files (CSS, JavaScript, Images)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Media files (Uploaded by users)
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Ensure boto3 and django-storages work with MinIO
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'accounts.UserAssociate'
