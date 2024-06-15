@@ -150,7 +150,7 @@ AWS_S3_REGION_NAME = os.getenv('M_REGION')
 AWS_S3_SIGNATURE_VERSION = os.getenv('M_SIGNATURE')
 
 # Static files (CSS, JavaScript, Images)
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Media files (Uploaded by users)
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
